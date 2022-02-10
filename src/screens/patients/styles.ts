@@ -15,8 +15,7 @@ export const Style = StyleSheet.create({
     fontWeight: '600',
     lineHeight: 27
   },
-  searchView: {
-    //backgroundColor: Colors.white,
+  searchView: { 
     paddingTop: 15,
     paddingBottom: 5,
     paddingLeft: 13,
@@ -39,8 +38,7 @@ export const Style = StyleSheet.create({
     borderRadius: 10
   },
   topLabels: {
-    flexDirection: 'row',
-    //justifyContent: 'space-between'
+    flexDirection: 'row', 
   },
   relationship: {
     fontSize: 15,
@@ -48,9 +46,7 @@ export const Style = StyleSheet.create({
     fontWeight: '600',
     color: Colors.textInputBorder
   },
-  typeSpacing: {
-    //marginBottom: 6,
-    //textTransform: 'uppercase'
+  typeSpacing: { 
   },
   dobLabel: {
     color: Colors.lightGrey2,
@@ -71,8 +67,7 @@ export const Style = StyleSheet.create({
   newDependentButton: {
     position: 'absolute',
     bottom:0,
-    width: '100%'
-    //left:0,
+    width: '100%' 
   },
   newDependantContainer: {
     paddingLeft: 22,

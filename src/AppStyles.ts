@@ -67,8 +67,7 @@ export const AppStyles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  rowFlex: {
-    // flex: 1,
+  rowFlex: { 
     flexDirection: 'row',
   },
   primaryTint: {

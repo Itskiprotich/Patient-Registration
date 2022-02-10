@@ -17,6 +17,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {Colors} from './src/Colors';
 import Patient from './src/screens/patients';
 import LoadingComponent from './src/common/loanding/LoadingComponent';
+import {NewPatient} from './src/screens/patients/addpatient';
 
 declare const global: {HermesInternal: null | {}};
 
@@ -34,10 +35,18 @@ const LoginStack = () => {
       <LoginStackNavigator.Screen
         name="Patients"
         options={{
-          title: '',
-          headerShown: false,
+          title: 'Registered Patients',
+          headerShown: true,
         }}
         component={Patient}
+      />
+      <LoginStackNavigator.Screen
+        name="NewPatient"
+        options={{
+          title: 'Add Patient',
+          headerShown: true,
+        }}
+        component={NewPatient}
       />
     </LoginStackNavigator.Navigator>
   );

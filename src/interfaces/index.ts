@@ -29,3 +29,8 @@ export interface StateInterface {
   alert: AlertInterface;
   loading: LoadingInterface;
 }
+
+export interface Option {
+  label: string;
+  value: string;
+}

@@ -11,6 +11,8 @@ import {StateInterface} from '../../interfaces';
 import {Style} from './styles';
 import {JSONObjectInterface} from '../../interfaces/json';
 
+import Icon from 'react-native-vector-icons/MaterialIcons';
+
 type HomeScreenNavigationProp = StackNavigationProp<
   LoginStackParamList,
   'Patients'
@@ -39,10 +41,10 @@ const Patient = (props: PatientsScreenProps) => {
   }, [navigation]);
 
   const [searchText, setSearchText] = useState('');
-  const [patients, setDependents] = useState(props.patients || []);
+  const [patients, setPatient] = useState(props.patients || []);
 
   useEffect(() => {
-    setDependents(props.patients);
+    setPatient(props.patients);
   }, [props.patients]);
 
   const renderSeparator = () => {
@@ -94,7 +96,7 @@ const Patient = (props: PatientsScreenProps) => {
 
   useEffect(() => {
     if (searchText === '') {
-      setDependents(props.patients || []);
+      setPatient(props.patients || []);
     } else {
       const deps = patients.filter(d => {
         return (
@@ -105,7 +107,7 @@ const Patient = (props: PatientsScreenProps) => {
             .search(searchText.toLowerCase()) !== -1
         );
       });
-      setDependents(deps);
+      setPatient(deps);
     }
   }, [searchText]);
 
@@ -145,6 +147,23 @@ const Patient = (props: PatientsScreenProps) => {
           </Text>
         </View>
       )}
+      <TouchableOpacity
+        onPress={() => navigation.navigate('NewPatient')}
+        style={{
+          borderWidth: 1,
+          borderColor: 'rgba(0,0,0,0.2)',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: 70,
+          position: 'absolute',
+          bottom: 10,
+          right: 10,
+          height: 70,
+          backgroundColor: Colors.primary,
+          borderRadius: 100,
+        }}>
+        <Icon name={'add'} size={32} color={Colors.white} />
+      </TouchableOpacity>
     </View>
   );
 };

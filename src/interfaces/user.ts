@@ -36,10 +36,25 @@ interface Person {
   }
   
   export interface Patients extends Person{
+    uuid:string;
     city: string | null;
     country: string | null;
     active: boolean;
   }
+  export const INITIAL_PATIENT: Patients = {
+    uuid: '',
+    first_name: '',
+    last_name: '',
+    dob: '',
+    gender: '',
+    phonenumber: '',  
+    active: true,
+    city: '',
+    country: '',
+  }
+
+
+
   export interface ChangePinParams {
     phonenumber: string;
     id_number: string;
