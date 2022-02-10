@@ -113,7 +113,7 @@ export const AppStyles = StyleSheet.create({
   },
   headerButton: {
     marginRight: 10,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.primary,
     borderRadius: 5
   },
   cancelButton: {

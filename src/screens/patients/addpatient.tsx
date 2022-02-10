@@ -7,7 +7,7 @@ import {Action} from 'redux';
 import {connect} from 'react-redux';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RouteProp} from '@react-navigation/native';
-import {INITIAL_DEPENDANT, Patients} from '../../interfaces/user';
+import {INITIAL_PATIENT, Patients} from '../../interfaces/user';
 import {LoginStackParamList} from '../../RouteTypes';
 import {AppStyles} from '../../AppStyles';
 import {StateInterface} from '../../interfaces/';
@@ -18,6 +18,8 @@ import RadioButton from '../../common/radioButton';
 import {Colors} from '../../Colors';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import PhoneNumberInput from '../../common/phone';
+import uuid from 'react-native-uuid';
 
 type HomeScreenNavigationProp = StackNavigationProp<
   LoginStackParamList,
@@ -58,10 +60,19 @@ const activeOptions = [
   {label: 'Active', value: 'true'},
   {label: 'In Active', value: 'false'},
 ];
+type patientKeys =
+  | 'first_name'
+  | 'last_name'
+  | 'dob'
+  | 'gender'
+  | 'phonenumber'
+  | 'city'
+  | 'country'
+  | 'active';
 
 export const NewPatient = (props: PatientProps) => {
   const [patient, setPatient] = useState<Patients>(
-    props.route.params?.patient || {...INITIAL_DEPENDANT},
+    props.route.params?.patient || {...INITIAL_PATIENT},
   );
   const [validate, setValidate] = useState(false);
 
@@ -75,7 +86,7 @@ export const NewPatient = (props: PatientProps) => {
           <Icon
             onPress={() => addPatient()}
             name="save"
-            color={Colors.green}
+            color={Colors.white}
             size={28}
           />
         </View>
@@ -123,24 +134,56 @@ export const NewPatient = (props: PatientProps) => {
     }
     setPatient(dep);
   };
+  const handleFieldChange = (name: string, value: string) => {
+    const dep = {...patient};
+    if (name === 'first_name') {
+      dep.first_name = value;
+      setPatient(dep);
+    }
+    if (name === 'last_name') {
+      dep.last_name = value;
+      setPatient(dep);
+    }
+    if (name === 'phonenumber') {
+      dep.phonenumber = value;
+      setPatient(dep);
+    }
+    if (name === 'city') {
+      dep.city = value;
+      setPatient(dep);
+    }
+    if (name === 'country') {
+      dep.country = value;
+
+      setPatient(dep);
+    }
+  };
 
   const addPatient = () => {
     if (
       patient.first_name === '' ||
       patient.last_name === '' ||
-      patient.gender === '' ||
-      patient.phonenumber !== ''
+      patient.phonenumber === ''
     ) {
       setValidate(true);
       return false;
     }
+    //console.log(patient);
+
     props.addPatient({
       ...patient,
-      phonenumber: patient.phonenumber,
+      puid: '12345678900987654321',
       first_name: patient.first_name,
       last_name: patient.last_name,
+      dob: patient.dob,
+      phonenumber: patient.phonenumber,
+      gender: patient.gender,
+      city: patient.city,
+      country: patient.country,
+      active: patient.active,
     });
-    props.navigation.pop();
+
+    // props.navigation.pop();
   };
 
   return (
@@ -165,6 +208,7 @@ export const NewPatient = (props: PatientProps) => {
               ? AppStyles.errorTextInput
               : {}),
           }}
+          onChangeText={text => handleFieldChange('first_name', text)}
           value={patient.first_name}
         />
       </View>
@@ -177,14 +221,15 @@ export const NewPatient = (props: PatientProps) => {
           Family Name <Text style={AppStyles.required}>*</Text>
         </Text>
         <TextInput
-          placeholder="First Name"
+          placeholder="Family Name"
           style={{
             ...AppStyles.textInput,
-            ...(patient.first_name === '' && validate
+            ...(patient.last_name === '' && validate
               ? AppStyles.errorTextInput
               : {}),
           }}
-          value={patient.first_name}
+          onChangeText={text => handleFieldChange('last_name', text)}
+          value={patient.last_name}
         />
       </View>
       <View style={AppStyles.formGroup}>
@@ -211,15 +256,10 @@ export const NewPatient = (props: PatientProps) => {
           }}>
           Phone Number <Text style={AppStyles.required}>*</Text>
         </Text>
-        <TextInput
-          placeholder={'Phone number (+254000000000)'}
-          style={{
-            ...AppStyles.textInput,
-            ...(patient.phonenumber === '' && validate
-              ? AppStyles.errorTextInput
-              : {}),
-          }}
+        <PhoneNumberInput
+          onChangeText={text => handleFieldChange('phonenumber', text)}
           value={patient.phonenumber}
+          placeholder={'Phone number (+254000000000)'}
         />
       </View>
       <View style={AppStyles.formGroup}>
@@ -253,11 +293,12 @@ export const NewPatient = (props: PatientProps) => {
           placeholder="Enter City"
           style={{
             ...AppStyles.textInput,
-            ...(patient.first_name === '' && validate
+            ...(patient.city === '' && validate
               ? AppStyles.errorTextInput
               : {}),
           }}
-          value={patient.first_name}
+          value={patient.city}
+          onChangeText={text => handleFieldChange('city', text)}
         />
       </View>
       <View style={AppStyles.formGroup}>
@@ -272,11 +313,12 @@ export const NewPatient = (props: PatientProps) => {
           placeholder="Enter Country"
           style={{
             ...AppStyles.textInput,
-            ...(patient.first_name === '' && validate
+            ...(patient.country === '' && validate
               ? AppStyles.errorTextInput
               : {}),
           }}
-          value={patient.first_name}
+          value={patient.country}
+          onChangeText={text => handleFieldChange('country', text)}
         />
       </View>
       <View style={AppStyles.formGroup}>
@@ -305,7 +347,7 @@ const mapDispatchToProps = (
   dispatch: ThunkDispatch<StateInterface, any, Action>,
 ): ActionProps => {
   return {
-    addPatient: (dependent: Patients) => dispatch(addPatient(dependent)),
+    addPatient: (patient: Patients) => dispatch(addPatient(patient)),
   };
 };
 

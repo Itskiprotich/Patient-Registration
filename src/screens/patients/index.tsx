@@ -148,7 +148,7 @@ const Patient = (props: PatientsScreenProps) => {
         </View>
       )}
       <TouchableOpacity
-        onPress={() => navigation.navigate('NewPatient')}
+        onPress={() => navigation.navigate('Signup')}
         style={{
           borderWidth: 1,
           borderColor: 'rgba(0,0,0,0.2)',

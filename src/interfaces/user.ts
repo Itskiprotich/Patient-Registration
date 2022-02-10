@@ -27,7 +27,7 @@ interface Person {
     first_name: '',
     last_name: '',
     dob: '',
-    gender: '',
+    gender: 'male',
     phonenumber: '',
     msisdn: '',
     relationship: '',
@@ -36,13 +36,13 @@ interface Person {
   }
   
   export interface Patients extends Person{
-    uuid:string;
-    city: string | null;
-    country: string | null;
+    puid: string;
+    city: string;
+    country: string;
     active: boolean;
   }
   export const INITIAL_PATIENT: Patients = {
-    uuid: '',
+    puid: '',
     first_name: '',
     last_name: '',
     dob: '',

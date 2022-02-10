@@ -11,7 +11,7 @@ export const patientAdded = (patient: Patients) => (
     { type : USER_ACTIONS.PATIENT_ADDED, patient }
   );
 
-export const addPatient = (patient: Patients) => {
+export const addPatient = (patient: Patients) => { 
     return (dispatch: ThunkDispatchAction, getState: () => StateInterface) => {
       if (!isOnline(getState())) {
         dispatch(setAlert({
@@ -21,9 +21,7 @@ export const addPatient = (patient: Patients) => {
         return;
       }
       dispatch(setLoading({ loading: true, message: 'adding dependant...'}));
-      const { user } = getState();
-      if (user.token) {
-        const addPatientPromise = UserAPI.addPatient(patient, user.token);
+        const addPatientPromise = UserAPI.addPatient(patient);
         addPatientPromise.then(response => response.json()).then(json => {
           dispatch(setLoading({ loading: false, message: ''}));
           dispatch(setAlert({ visible: true, message: json.message }));
@@ -31,6 +29,6 @@ export const addPatient = (patient: Patients) => {
             dispatch(patientAdded(patient));
           }
         })
-      }
+      
     }
   }

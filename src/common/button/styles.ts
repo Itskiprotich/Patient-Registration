@@ -13,7 +13,7 @@ export const Style = StyleSheet.create({
     paddingRight: 10, 
   },
   text: {
-    color: Colors.black,
+    color: Colors.white,
     fontWeight: '700',
     fontSize: 18,
     lineHeight: 27

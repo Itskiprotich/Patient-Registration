@@ -3,10 +3,10 @@ import { Patients } from './../interfaces/user';
 import { CONSTANTS } from '../utils/constants';
  
 
-export const addPatient = (patient: Patients, token: string) => {
+export const addPatient = (patient: Patients) => {
   const headers = getRequestConfig();
   return fetch(
-    `${CONSTANTS.APP_URL}${CONSTANTS.ADD_PATIENT}${patient.uuid}`,
+    `${CONSTANTS.APP_URL}${CONSTANTS.ADD_PATIENT}${patient.puid}`,
     Object.assign({}, headers, {
       method: 'POST',
       body: JSON.stringify(patient),

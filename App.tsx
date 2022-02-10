@@ -18,6 +18,7 @@ import {Colors} from './src/Colors';
 import Patient from './src/screens/patients';
 import LoadingComponent from './src/common/loanding/LoadingComponent';
 import {NewPatient} from './src/screens/patients/addpatient';
+import SignupScreen from './src/screens/patients/update';
 
 declare const global: {HermesInternal: null | {}};
 
@@ -47,6 +48,14 @@ const LoginStack = () => {
           headerShown: true,
         }}
         component={NewPatient}
+      />
+      <LoginStackNavigator.Screen
+        name="Signup"
+        options={{
+          title: 'Add Patient',
+          headerShown: true,
+        }}
+        component={SignupScreen}
       />
     </LoginStackNavigator.Navigator>
   );
